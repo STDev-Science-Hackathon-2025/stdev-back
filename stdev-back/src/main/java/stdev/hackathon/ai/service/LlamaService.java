@@ -19,7 +19,7 @@ public class LlamaService {
     private final SessionRepository sessionRepository;
     // http://ec2-3-37-30-149.ap-northeast-2.compute.amazonaws.com:8000
     private final WebClient webClient = WebClient.builder()
-            .baseUrl("http://localhost:8000") // EC2라면 퍼블릭 IP로 교체
+            .baseUrl("http://ec2-3-37-30-149.ap-northeast-2.compute.amazonaws.com:8000") // EC2라면 퍼블릭 IP로 교체
             .build();
 
     public String askLlama(Long sessionId, String newQuestion) {
