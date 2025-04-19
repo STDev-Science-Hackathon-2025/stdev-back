@@ -14,7 +14,7 @@ import java.util.Random;
 public class SessionService {
     private final SessionRepository sessionRepository;
     public Session createNewSession() {
-        List<String> substances = Arrays.asList("탄소", "수소", "헬륨", "산소", "질소");
+        List<String> substances = Arrays.asList("탄소", "수소");
         String identity = substances.get(new Random().nextInt(substances.size()));
 
         Session session = Session.builder()
