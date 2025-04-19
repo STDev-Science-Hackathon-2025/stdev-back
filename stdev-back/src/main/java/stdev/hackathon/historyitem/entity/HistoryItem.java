@@ -17,6 +17,7 @@ public class HistoryItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long historyItemId;
     private String question;
+    @Column(columnDefinition = "TEXT")
     private String answer;
 
     @ManyToOne(fetch = FetchType.LAZY)
