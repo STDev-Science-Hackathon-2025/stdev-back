@@ -15,9 +15,9 @@ import java.util.Map;
 public class LlamaController {
     private final LlamaService llamaService;
 
-    @PostMapping("/ask")
-    public ResponseEntity<String> ask(@RequestBody String prompt) {
-        String response = llamaService.askLlama(prompt);
+    @PostMapping("/ask/{sessionId}")
+    public ResponseEntity<String> ask(@PathVariable Long sessionId, @RequestBody String prompt) {
+        String response = llamaService.askLlama(sessionId, prompt);
         return ResponseEntity.ok(response);
     }
 }
