@@ -19,6 +19,8 @@ public class HistoryItem {
     private String question;
     @Column(columnDefinition = "TEXT")
     private String answer;
+    private int score;
+    private boolean done;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "session_id")

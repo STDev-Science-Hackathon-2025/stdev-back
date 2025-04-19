@@ -3,6 +3,7 @@ package stdev.hackathon.ai.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import stdev.hackathon.historyitem.dto.HistoryItemDto;
 import stdev.hackathon.historyitem.entity.HistoryItem;
 import stdev.hackathon.ai.dto.PromptRequestDto;
 import stdev.hackathon.ai.dto.PromptResponseDto;
@@ -19,14 +20,19 @@ public class LlamaService {
     private final SessionRepository sessionRepository;
     // http://ec2-3-37-30-149.ap-northeast-2.compute.amazonaws.com:8000
     private final WebClient webClient = WebClient.builder()
-            .baseUrl("http://ec2-3-37-30-149.ap-northeast-2.compute.amazonaws.com:8000") // EC2라면 퍼블릭 IP로 교체
+            .baseUrl("http://localhost:8000") // EC2라면 퍼블릭 IP로 교체
             .build();
 
     public String askLlama(Long sessionId, String newQuestion) {
-        List<HistoryItem> historyItems = historyItemRepository.findBySession_SessionId(sessionId);
+        List<HistoryItemDto> historyDtos = historyItemRepository.findBySession_SessionId(sessionId)
+                .stream()
+                .map(HistoryItemDto::new)
+                .toList();
+
+        PromptRequestDto promptRequestDto = new PromptRequestDto(newQuestion, historyDtos);
         String answer = webClient.post()
                 .uri("/generate")
-                .bodyValue(new PromptRequestDto(newQuestion, historyItems))
+                .bodyValue(promptRequestDto)
                 .retrieve()
                 .bodyToMono(PromptResponseDto.class)
                 .map(PromptResponseDto::getLatest)

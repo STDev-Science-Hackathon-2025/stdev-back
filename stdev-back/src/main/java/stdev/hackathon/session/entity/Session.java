@@ -20,6 +20,10 @@ public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sessionId;
+    private String identity;
+    private int score; // 기본 점수
 
-    private int familiarityScore;
+    public void changeScore(int newScore) {
+        this.score = newScore;
+    }
 }
