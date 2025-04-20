@@ -5,6 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import stdev.hackathon.element.entity.Element;
 import stdev.hackathon.element.repository.ElementRepository;
+import stdev.hackathon.session.entity.Session;
+import stdev.hackathon.session.repository.SessionRepository;
 import stdev.hackathon.tip.entity.Tip;
 import stdev.hackathon.tip.repository.TipRepository;
 
@@ -16,6 +18,7 @@ public class DummyDataInitializer implements CommandLineRunner {
 
     private final ElementRepository elementRepository;
     private final TipRepository tipRepository;
+    private final SessionRepository sessionRepository;
 
     @Override
     public void run(String... args) {
@@ -54,6 +57,23 @@ public class DummyDataInitializer implements CommandLineRunner {
                             .build()
             ));
             System.out.println("✅ Tip 더미 데이터 초기화 완료");
+        }
+        if (sessionRepository.count() == 0) {
+            sessionRepository.saveAll(List.of(
+                    Session.builder()
+                            .identity("질소")
+                            .score(45)
+                            .build(),
+                    Session.builder()
+                            .identity("헬륨")
+                            .score(70)
+                            .build(),
+                    Session.builder()
+                            .identity("산소")
+                            .score(60)
+                            .build()
+            ));
+            System.out.println("✅ Session 더미 데이터 초기화 완료");
         }
     }
 }
