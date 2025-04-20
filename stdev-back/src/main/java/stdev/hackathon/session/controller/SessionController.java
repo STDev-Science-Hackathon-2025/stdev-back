@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import stdev.hackathon.session.entity.Session;
 import stdev.hackathon.session.service.SessionService;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/sessions")
@@ -26,6 +28,19 @@ public class SessionController {
     public ResponseEntity<String> createSession() {
         Session session = sessionService.createNewSession(); // 변경: session 반환하도록 수정
         return ResponseEntity.ok("Created session with ID: " + session.getSessionId());
+    }
+
+    // 세션 조회
+    @GetMapping("/{sessionId}")
+    public ResponseEntity<Session> getSession(@PathVariable Long sessionId) {
+        Session session = sessionService.getSession(sessionId);
+        return ResponseEntity.ok(session);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Session>> getAllSessions() {
+        List<Session> sessions = sessionService.getAllSessions();
+        return ResponseEntity.ok(sessions);
     }
 
 }

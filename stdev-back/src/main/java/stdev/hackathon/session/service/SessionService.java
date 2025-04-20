@@ -25,4 +25,13 @@ public class SessionService {
         return sessionRepository.save(session);
     }
 
+    public Session getSession(Long sessionId) {
+        return sessionRepository.findById(sessionId)
+                .orElseThrow(() -> new IllegalArgumentException("세션이 존재하지 않습니다. id=" + sessionId));
+    }
+
+    public List<Session> getAllSessions() {
+        return sessionRepository.findAll();
+    }
+
 }

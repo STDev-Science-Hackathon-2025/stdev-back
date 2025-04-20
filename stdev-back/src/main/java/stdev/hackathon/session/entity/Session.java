@@ -21,7 +21,7 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sessionId;
     private String identity;
-    private int score; // 기본 점수
+    private int score;
 
     public void changeScore(int newScore) {
         this.score = newScore;
