@@ -21,6 +21,9 @@ public class Element {
     @Column(columnDefinition = "TEXT")
     private String elementCharacteristics;
 
+    @Column(columnDefinition = "TEXT")
+    private String elementLife;
+
     private String elementUrl1;
 
     private String elementUrl2;
